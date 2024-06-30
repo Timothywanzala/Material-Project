@@ -1,109 +1,139 @@
-import React from 'react';
+import React, { useState } from "react";
 
-import Grid from '@mui/material/Unstable_Grid2';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
+export default function RegisterView() {
+  const [values, setValues] = useState({
+    firstName: "",
+    lastName: "",
+    email: ""
+  });
 
-import AppCurrentVisits from '../overview/app-member';
-import AppWebsiteVisits from '../overview/app-website-visits';
-import AppWidgetSummary from '../overview/app-widget-summary';
+  const handleInputChange = (event) => {
+    event.preventDefault();
+    const { name, value } = event.target;
+    setValues({
+      ...values,
+      [name]: value,
+    });
+  };
 
+  const [submitted, setSubmitted] = useState(false);
+  const [valid, setValid] = useState(false);
 
-const RegisterView = () => 
-      <Container maxWidth="xl">
-          <Typography variant="h4" sx={{ mb: 5 }}>
-            Hi, you&apos;re welcome 👋
-          </Typography>
-    
-          <Grid container spacing={3}>
-            <Grid xs={12} sm={6} md={3}>
-              <AppWidgetSummary
-                title="Total Participants"
-                total={0}
-                color="success"
-                icon={<img alt="icon" src="/assets/icons/glass/ic_glass_bag.png" />}
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (values.firstName && values.lastName && values.email) {
+      setValid(true);
+    }
+    setSubmitted(true);
+  };
+
+  return (
+    <div style={styles.body}>
+      <div style={styles.formContainer}>
+        <form style={styles.registerForm} onSubmit={handleSubmit}>
+          {submitted && valid && (
+            <div style={styles.successMessage}>
+              <h3>Welcome {values.firstName} {values.lastName}</h3>
+              <div>Your registration was successful!</div>
+            </div>
+          )}
+          {!valid && (
+            <>
+              <input
+                style={styles.formField}
+                type="text"
+                placeholder="First Name"
+                name="firstName"
+                value={values.firstName}
+                onChange={handleInputChange}
               />
-            </Grid>
-    
-            <Grid xs={12} sm={6} md={3}>
-              <AppWidgetSummary
-                title="New Participants"
-                total={0}
-                color="info"
-                icon={<img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />}
-              />
-            </Grid>
-    
-            <Grid xs={12} sm={6} md={3}>
-              <AppWidgetSummary
-                title="Engagements"
-                total={0}
-                color="warning"
-                icon={<img alt="icon" src="/assets/icons/glass/ic_glass_buy.png" />}
-              />
-            </Grid>
-    
-            <Grid xs={12} sm={6} md={3}>
-              <AppWidgetSummary
-                title="Retatained Participants"
-                total={0}
-                color="error"
-                icon={<img alt="icon" src="/assets/icons/glass/ic_glass_message.png" />}
-              />
-            </Grid>
-    
-            <Grid xs={12} md={6} lg={8}>
-              <AppWebsiteVisits
-                title="Event Participation"
-               
-                chart={{
-                  labels: [
-                    '01/01/2003',
-                    '02/01/2003',
-                    '03/01/2003',
-                    '04/01/2003',
-                    '05/01/2003',
-                    '06/01/2003',
-                    '07/01/2003',
-                    '08/01/2003',
-                    '09/01/2003',
-                    '10/01/2003',
-                    '11/01/2003',
-                  ],
-                  series: [
-                    {
-                      name: 'Participation Rates',
-                      type: 'column',
-                      fill: 'solid',
-                      data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30],
-                    },
-                    {
-                      name: 'Frequency Of Particpatio',
-                      type: 'area',
-                      fill: 'gradient',
-                      data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43],
-                    },
-                  ],
-                }}
-              />
-            </Grid>
-    
-            <Grid>
-            <Grid xs={12} md={6} lg={4}>
-               <AppCurrentVisits
-                title="Members And Non-Members"
-                chart={{
-                  series: [
-                    { label: 'Non-Member', value: 4344 },
-                    { label: 'Member', value: 5435 }
-                  ]
-                }} /> 
-              </Grid>
-            </Grid>
-            </Grid>
+              {submitted && !values.firstName && (
+                <span style={styles.errorMessage}>Please enter a first name</span>
+              )}
 
-        </Container>
+              <input
+                style={styles.formField}
+                type="text"
+                placeholder="Last Name"
+                name="lastName"
+                value={values.lastName}
+                onChange={handleInputChange}
+              />
+              {submitted && !values.lastName && (
+                <span style={styles.errorMessage}>Please enter a last name</span>
+              )}
 
+              <input
+                style={styles.formField}
+                type="email"
+                placeholder="Email"
+                name="email"
+                value={values.email}
+                onChange={handleInputChange}
+              />
+              {submitted && !values.email && (
+                <span style={styles.errorMessage}>Please enter an email address</span>
+              )}
 
+              <button style={styles.formField} type="submit">
+                Register
+              </button>
+            </>
+          )}
+        </form>
+      </div>
+    </div>
+  );
+}
 
-export default RegisterView
+const styles = {
+  body: {
+    display: 'flex',
+    minHeight: '100vh',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  formContainer: {
+    maxWidth: '600px', /* Setting a max width */
+    width: '100%', /* Ensuring full width responsiveness */
+    backgroundColor: 'white',
+    margin: 'auto',
+    borderRadius: '12px', /* Adding curved edges */
+    boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24)',
+    padding: '10px',
+  },
+  registerForm: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+    padding: '10px',
+  },
+  successMessage: {
+    fontFamily: '"Roboto", sans-serif',
+    padding: '15px',
+    color: 'white',
+    textAlign: 'center',
+  },
+  formField: {
+    margin: '10px 0',
+    padding: '15px',
+    fontSize: '16px',
+    border: '0',
+    fontFamily: '"Roboto", sans-serif',
+    backgroundColor: '#f2f2f2',
+  },
+  errorMessage: {
+    fontFamily: '"Roboto", sans-serif',
+    fontSize: '14px',
+    color: 'red',
+    marginBottom: '15px',
+  },
+  button: {
+    background: '#4caf50',
+    color: 'white',
+    cursor: 'pointer',
+  },
+  buttonDisabled: {
+    cursor: 'default',
+  },
+}  

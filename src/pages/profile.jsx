@@ -8,8 +8,8 @@ const ProfilePage = () =>
             <title> Profile </title>
         </Helmet>
 
-        <ProfileView />
+        <div style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
+            <ProfileView />
+        </div>
     </>
-
-
 export default ProfilePage

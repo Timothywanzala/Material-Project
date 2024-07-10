@@ -21,6 +21,7 @@
     "watch": "nodemon --watch src --exec \"yarn dev\""
   },
   "dependencies": {
+    "@azure/msal-browser": "^3.18.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@faker-js/faker": "^8.1.0",

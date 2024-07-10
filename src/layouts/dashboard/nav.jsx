@@ -1,14 +1,9 @@
-import { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
 
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import Drawer from '@mui/material/Drawer';
-import Avatar from '@mui/material/Avatar';
 import { alpha } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
-import ListItemButton from '@mui/material/ListItemButton';
+import { Box, Button, Drawer, Avatar, Typography, ListItemButton } from '@mui/material';
 
 import { usePathname } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
@@ -16,18 +11,17 @@ import { RouterLink } from 'src/routes/components';
 import { useResponsive } from 'src/hooks/use-responsive';
 
 import { account } from 'src/_mock/account';
+import RegisterEventPage from 'src/pages/register';
 
 import Logo from 'src/components/logo';
-// import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
 
 import { NAV } from './config-layout';
 import navConfig from './config-navigation';
 
-// ----------------------------------------------------------------------
-
 export default function Nav({ openNav, onCloseNav }) {
   const pathname = usePathname();
+  const [showEventForm, setShowEventForm] = useState(false);
 
   const upLg = useResponsive('up', 'lg');
 
@@ -35,8 +29,15 @@ export default function Nav({ openNav, onCloseNav }) {
     if (openNav) {
       onCloseNav();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+  }, [pathname, onCloseNav, openNav]);
+
+  const handleRegisterClick = () => {
+    setShowEventForm(true);
+  };
+
+  const handleFormClose = () => {
+    setShowEventForm(false);
+  };
 
   const renderAccount = (
     <Box
@@ -52,10 +53,8 @@ export default function Nav({ openNav, onCloseNav }) {
       }}
     >
       <Avatar src={account.photoURL} alt="photoURL" />
-
       <Box sx={{ ml: 2 }}>
         <Typography variant="subtitle2">{account.displayName}</Typography>
-
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
           {account.role}
         </Typography>
@@ -70,15 +69,15 @@ export default function Nav({ openNav, onCloseNav }) {
           <NavItem key={item.title} item={item} />
         ))}
       </Stack>
-
-      <Box sx={{ alignSelf: 'center', padding: '16px', width: '100%' }}>
-        <Button
-          variant="contained"
-          sx={{ backgroundColor: 'black', color: 'white', width: '75%' }}
-        >
-          Register Event
-        </Button>
-      </Box>
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      <Button
+        variant="contained"
+        onClick={handleRegisterClick}
+        sx={{ backgroundColor: 'black', color: 'white', width: '75%', alignSelf: 'center', mt: 3 }}
+      >
+        Register Event
+      </Button>
+    </Box>
     </div>
   );
 
@@ -94,14 +93,9 @@ export default function Nav({ openNav, onCloseNav }) {
       }}
     >
       <Logo sx={{ mt: 3, ml: 4 }} />
-
       {renderAccount}
-
       {renderMenu}
-
       <Box sx={{ flexGrow: 1 }} />
-
-      {/* {renderUpgrade} */}
     </Scrollbar>
   );
 
@@ -136,6 +130,12 @@ export default function Nav({ openNav, onCloseNav }) {
           {renderContent}
         </Drawer>
       )}
+
+      <Drawer open={showEventForm} onClose={handleFormClose}>
+        <Box sx={{ p: 3 }}>
+          <RegisterEventPage onClose={handleFormClose} />
+        </Box>
+      </Drawer>
     </Box>
   );
 }
@@ -145,12 +145,9 @@ Nav.propTypes = {
   onCloseNav: PropTypes.func,
 };
 
-// ----------------------------------------------------------------------
-
 function NavItem({ item }) {
   const pathname = usePathname();
-
-  const active = item.path === pathname;
+  const active = item.path === usePathname();
 
   return (
     <ListItemButton
@@ -163,8 +160,8 @@ function NavItem({ item }) {
         typography: 'body2',
         textTransform: 'capitalize',
         fontWeight: 'fontWeightMedium',
-        textAlign: 'center', // Center the text
-        color: 'black', // Set text color to black
+        textAlign: 'center',
+        color: 'black',
         ...(active && {
           fontWeight: 'fontWeightSemiBold',
           bgcolor: (theme) => alpha(theme.palette.primary.main, 0.08),
@@ -177,8 +174,7 @@ function NavItem({ item }) {
       <Box component="span" sx={{ width: 20, height: 24, mr: 2 }}>
         {item.icon}
       </Box>
-
-      <Box component="span">{item.title} </Box>
+      <Box component="span">{item.title}</Box>
     </ListItemButton>
   );
 }

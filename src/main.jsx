@@ -6,7 +6,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import App from './app';
 
 // ----------------------------------------------------------------------
-
+// export default function Mathain() { 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
@@ -18,3 +18,4 @@ root.render(
     </BrowserRouter>
   </HelmetProvider>
 );
+// }

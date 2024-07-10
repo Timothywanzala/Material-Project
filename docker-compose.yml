@@ -4,7 +4,7 @@ networks:
   frontend:
     ipam:
       config:
-        - subnet: 10.255.100.160/28
+        - subnet: 10.255.100.144/28
 services:
   flbackendapi:
     build: ./backend/
@@ -17,7 +17,7 @@ services:
       - "3001"
     networks:
         frontend:
-            ipv4_address: 10.255.100.162
+            ipv4_address: 10.255.100.146
   nginx:
     build: ./nginx/
     container_name: server_flapi
@@ -28,4 +28,4 @@ services:
     restart: always  
     networks:
         frontend:
-            ipv4_address: 10.255.100.164
+            ipv4_address: 10.255.100.148

@@ -5,9 +5,10 @@ FROM node:lts-slim
 WORKDIR /usr/src/app
 
 # Set environment variables 
-ENV FLER_DB_HOST=leopard.nssfug.org
-ENV FLER_DB_USERNAME=fler_app
-ENV FLER_DB_NAME=financial_literacy
+ENV FLER_DB_HOST=srv752.hstgr.io
+ENV FLER_DB_USERNAME=u111808351_fl_tootkit
+ENV FLER_DB_NAME=u111808351_fl_tootkit
+ENV FLER_DB_PASSWORD=dirxEm-gokzeh-6nynxy
 # Copy package.json and package-lock.json
 COPY package*.json ./
 

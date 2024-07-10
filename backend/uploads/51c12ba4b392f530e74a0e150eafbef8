@@ -1,0 +1,4 @@
+participantName,employerNumber,phoneContact,email,mothersName,lastEmployer,dateOfBirth,NIN,isMember,NSSFNumber,photo
+Olivia Garcia,78901,2223334444,oliviagarcia@example.com,Olga Garcia,Construction Co.,1993-06-18,OP109876F,false,89012,/path/to/photo8.jpg
+James Rodriguez,65432,8889990000,jamesr@example.com,Jennifer Rodriguez,Transport Inc.,1984-02-05,QR543210G,true,45678,/path/to/photo9.jpg
+Sophia Lopez,32109,3334445555,sophialopez@example.com,Samantha Lopez,Retail Solutions,1998-08-28,ST678901H,false,90123,/path/to/photo10.jpg

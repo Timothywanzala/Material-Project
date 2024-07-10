@@ -8,7 +8,6 @@ networks:
 services:
   flbackendapi:
     build: ./backend/
-    restart: always
     environment:
       - TZ=Africa/Nairobi
     expose:
@@ -24,8 +23,7 @@ services:
     depends_on: 
       - flbackendapi
     ports:
-      - "8001:8001"
-    restart: always  
+      - "8001:8001"  
     networks:
         frontend:
             ipv4_address: 10.255.100.148

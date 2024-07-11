@@ -65,15 +65,11 @@ const getAllParticipants = async (req, res) => {
     const participants = await Participant.findAll({
       include: [
         {
-          model: User,
-          attributes: ['id', 'first_name', 'last_name', 'email'] // Specify the attributes you need from the User model
-        },
-        {
           model: StatusDefinition,
           attributes: ['name']
         }
       ],
-      attributes: ['id', 'is_member', 'date_of_birth'] // Specify the attributes you need from the Participant model
+      attributes: ['id', 'first_name','last_name', 'date_of_birth', 'telephone'] // Specify the attributes you need from the Participant model
     });
     res.status(200).json(participants);
   } catch (error) {

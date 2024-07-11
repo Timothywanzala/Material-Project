@@ -146,7 +146,7 @@ Nav.propTypes = {
 };
 
 function NavItem({ item }) {
-  const pathname = usePathname();
+  // const pathname = usePathname();
   const active = item.path === usePathname();
 
   return (

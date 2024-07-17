@@ -5,11 +5,10 @@ import { LogLevel } from "@azure/msal-browser";
  */
 export const msalConfig = {
     auth: {
-        clientId: 'c796db6a-8df8-416e-bf23-2c2dff7b1658',
+        clientId: 'ba71496e-50da-42bd-ab7f-5c9ef98d62ba',
         authority: 'https://login.microsoftonline.com/f8cdef31-a31e-4b4a-93e4-5f571e91255a', // Replace with your Azure AD tenant ID
-        redirectUri: 'http://localhost:3030/auth/callback', // You must register this URI on Azure Portal/App Registration. Defaults to window.location.origin
-        postLogoutRedirectUri: '/', // Indicates the page to navigate after logout.
-        navigateToLoginRequestUrl: false, // If "true", will navigate back to the original request location before processing the auth code response.
+        redirectUri: 'http://localhost:3000/', // You must register this URI on Azure Portal/App Registration. Defaults to window.location.origin
+       
     },
     cache: {
         cacheLocation: 'sessionStorage', // Configures cache location. "sessionStorage" is more secure, but "localStorage" gives you SSO between tabs.
@@ -55,9 +54,13 @@ export const protectedResources = {
     },
 };
 
+export const graphConfig = {
+    graphMeEndpoint: "https://graph.microsoft.com/v1.0/me"
+};
+
 /**
  * Scopes you add here will be prompted for user consent during sign-in.
  */
 export const loginRequest = {
-    scopes: [...protectedResources.apiTodoList.scopes.read, ...protectedResources.apiTodoList.scopes.write],
+    scopes: [...protectedResources.apiTodoList.scopes.read, ...protectedResources.apiTodoList.scopes.write, "User.Read"]
 };
